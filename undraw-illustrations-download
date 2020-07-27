@@ -1,0 +1,22 @@
+#!/bin/sh
+
+##
+# Undraw illustration download
+#
+# Undraw.co provides excellent free illustrations.
+# This script simply helps download them all.
+#
+# Please consider supporting the artist and the work:
+# Katerina Limpitsouni (https://twitter.com/ninaLimpi)
+##
+
+for ((i=1;i<80;i++)); do 
+ 	echo "page:$i"
+ 	curl -s https://undraw.co/api/illustrations\?page\=$i |
+ 	jq '.illustrations[].image' -r | 
+ 	while read uri; do 
+ 		echo "$uri"
+ 		curl -OJsSL "$uri"
+ 		sleep 1
+	done
+done
